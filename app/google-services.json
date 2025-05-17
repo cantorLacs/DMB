@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "586119594335",
+    "project_id": "com.lacs.testdmb",
+    "storage_bucket": "authdmb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586119594335:android:deb223486c3836149436ea",
+        "android_client_info": {
+          "package_name": "com.lacs.testdmb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586119594335-8fogc9sl99q9r60h5sck9h9gdck6i0gg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4_bxv1v87T_bsgGlIkVfddGyg3ZrHV90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586119594335-8fogc9sl99q9r60h5sck9h9gdck6i0gg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
