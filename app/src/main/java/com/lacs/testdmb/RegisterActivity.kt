@@ -1,5 +1,6 @@
 package com.lacs.testdmb
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -36,27 +37,25 @@ class RegisterActivity : AppCompatActivity() {
             } else if (passwordText != confirmText) {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
             } else {
-                val user = User(email = emailText, password = passwordText)
-
-
-                val key = Users.push().key
-
-                if (key != null) {
-
-                    Users.child(key).setValue(user)
-                        .addOnCompleteListener { task ->
-
-                            if (task.isSuccessful) {
-                                Toast.makeText(this, "Registered successfully", Toast.LENGTH_SHORT).show()
-
-                            } else {
-                                Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
-                            }
-
+                auth.createUserWithEmailAndPassword(emailText, passwordText)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val uid = auth.currentUser?.uid
+                            val databaseRef = FirebaseDatabase.getInstance().getReference("Users").child(uid!!)
+                            val user = User(email = emailText)
+                            databaseRef.setValue(user)
+                            Toast.makeText(this, "Registered successfully", Toast.LENGTH_SHORT)
+                                .show()
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Registration failed: ${task.exception?.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                } else {
-                    Toast.makeText(this, "Database key generation failed", Toast.LENGTH_SHORT).show()
-                }
+                    }
             }
         }
     }
