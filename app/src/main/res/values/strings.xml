@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">testDMB</string>
+    <string name="like_the_stars">Like The Stars</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="log_in">Log In</string>
+    <string name="create_account">Create Account</string>
+    <string name="i_forgot_my_password">I forgot my password</string>
 </resources>
