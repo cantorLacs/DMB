@@ -14,6 +14,32 @@
         android:padding="16dp"
         android:orientation="vertical">
 
+        <!-- MFA Status and Button Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#F1F1F1"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/textViewMfaStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Two-Factor Authentication: Disabled"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                android:id="@+id/buttonManageMfa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable 2FA"
+                android:backgroundTint="#3949AB" />
+
+        </LinearLayout>
+
         <!-- Title -->
         <EditText
             android:id="@+id/editTextTitle"
@@ -225,13 +251,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonSubmit" />
-
-        <Button
-            android:id="@+id/buttonSetupMfa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Setup Two-Factor Authentication"
-            android:layout_marginTop="16dp" />
 
 
     </LinearLayout>

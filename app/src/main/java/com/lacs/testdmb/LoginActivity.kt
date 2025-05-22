@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthMultiFactorException
 import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
+    private lateinit var mfaVerificationLauncher: ActivityResultLauncher<Intent>
 
     // UI elements
     private lateinit var editTextEmail: EditText
@@ -46,6 +48,16 @@ class LoginActivity : AppCompatActivity() {
 
         // Google Sign-In setup
         setupGoogleSignIn()
+        
+        // Setup MFA verification launcher
+        mfaVerificationLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                // User successfully verified with MFA
+                onSuccessfulLogin("Logged in with multi-factor authentication")
+            }
+        }
     }
 
 
@@ -99,8 +111,21 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     onSuccessfulLogin("Logged in successfully")
                 } else {
-                    Toast.makeText(this, "Authentication failed: ${task.exception?.message}",
-                        Toast.LENGTH_SHORT).show()
+                    // Check if this is an MFA challenge
+                    val exception = task.exception
+                    if (exception is FirebaseAuthMultiFactorException) {
+                        // Get resolver
+                        val resolver = exception.resolver
+                        
+                        // Start MFA verification activity with the resolver
+                        val intent = Intent(this, MfaVerificationActivity::class.java).apply {
+                            putExtra(MfaVerificationActivity.EXTRA_RESOLVER, resolver)
+                        }
+                        mfaVerificationLauncher.launch(intent)
+                    } else {
+                        Toast.makeText(this, "Authentication failed: ${exception?.message}",
+                            Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
     }
@@ -142,8 +167,21 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     onSuccessfulLogin("Signed in with Google successfully")
                 } else {
-                    Toast.makeText(this, "Authentication failed: ${task.exception?.message}",
-                        Toast.LENGTH_SHORT).show()
+                    // Check if this is an MFA challenge
+                    val exception = task.exception
+                    if (exception is FirebaseAuthMultiFactorException) {
+                        // Get resolver
+                        val resolver = exception.resolver
+                        
+                        // Start MFA verification activity with the resolver
+                        val intent = Intent(this, MfaVerificationActivity::class.java).apply {
+                            putExtra(MfaVerificationActivity.EXTRA_RESOLVER, resolver)
+                        }
+                        mfaVerificationLauncher.launch(intent)
+                    } else {
+                        Toast.makeText(this, "Authentication failed: ${exception?.message}",
+                            Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
     }
