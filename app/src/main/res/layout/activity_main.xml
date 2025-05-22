@@ -214,5 +214,26 @@
         </LinearLayout>
 
 
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/ic_google"
+            android:paddingStart="16dp"
+            android:text="Logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonSubmit" />
+
+        <Button
+            android:id="@+id/buttonSetupMfa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Setup Two-Factor Authentication"
+            android:layout_marginTop="16dp" />
+
+
     </LinearLayout>
+
 </ScrollView>

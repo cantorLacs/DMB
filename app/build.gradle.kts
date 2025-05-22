@@ -60,6 +60,12 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // MFA with SMS
+    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
+    implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+
 
 }
 
